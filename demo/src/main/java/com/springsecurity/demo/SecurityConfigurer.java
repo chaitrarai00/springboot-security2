@@ -22,18 +22,18 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
 		auth.jdbcAuthentication()
-		.dataSource(dataSource)
-		.withDefaultSchema()
-		.withUser(
-				User.withUsername("user")
-				.password("user")
-				.roles("user")
-				)
-		.withUser(
-				User.withUsername("admin")
-				.password("admin")
-				.roles("admin")
-				);
+		.dataSource(dataSource);
+//		.withDefaultSchema()
+//		.withUser(
+//				User.withUsername("user")
+//				.password("user")
+//				.roles("user")
+//				)
+//		.withUser(
+//				User.withUsername("admin")
+//				.password("admin")
+//				.roles("admin")
+//				);
 	}
 
 	@Bean
@@ -45,8 +45,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
 		http.authorizeRequests()
-		.antMatchers("/admin").hasRole("admin")
-		.antMatchers("/user").hasAnyRole("admin","rules")
+		.antMatchers("/admin").hasRole("ADMIN")
+		.antMatchers("/user").hasAnyRole("ADMIN","USER")
 		.antMatchers("/").permitAll()
 		.and().formLogin();
 	}
